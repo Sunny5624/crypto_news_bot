@@ -18,11 +18,10 @@ async def main():
         while True:
             try:
                 logger.info("Checking WatcherGuru...")
-                news_items = fetch_watcher_guru_news()
+                news_items = await fetch_watcher_guru_news()
                 for title, url in news_items:
                     if url not in posted_urls:
-                        await send_telegram_message(f"📰 <b>{title}</b>
-{url}")
+                        await send_telegram_message(f"📰 <b>{title}</b>\n<a href=\"{url}\">Read More</a>")
                         posted_urls.add(url)
                 await asyncio.sleep(300)
             except Exception as e:
@@ -32,11 +31,10 @@ async def main():
         while True:
             try:
                 logger.info("Checking other sites...")
-                news_items = fetch_other_sites_news()
+                news_items = await fetch_other_sites_news()
                 for title, url in news_items:
                     if url not in posted_urls:
-                        await send_telegram_message(f"🗞️ <b>{title}</b>
-{url}")
+                        await send_telegram_message(f"🗞️ <b>{title}</b>\n<a href=\"{url}\">Read More</a>")
                         posted_urls.add(url)
                 await asyncio.sleep(1800)
             except Exception as e:
